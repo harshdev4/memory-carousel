@@ -31,25 +31,24 @@
       }
 
       .img-container {
-        padding: 0 20px;
+        padding-left: 10px;
         width: 96%;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        /* left: 20px; */
         display: flex;
         justify-content: space-between;
       }
 
       .text-container {
-        background-color: rgba(0,0,0,0.2);
+        background-color: rgba(0, 0, 0, 0.2);
         border-radius: 8px;
         padding: 5px 10px;
         width: 270px;
         height: 300px;
       }
 
-      .image-container{
+      .image-container {
         overflow-x: hidden;
         width: 600px;
         display: flex;
@@ -68,22 +67,22 @@
       .images > img {
         border-radius: 12px;
         width: 40%;
-        height:330px;
+        height: 330px;
         object-fit: cover;
       }
 
-      @media (max-width:599px){
-        .container > img{
+      @media (max-width: 599px) {
+        .image-container {
+          width: 100%;
+        }
+
+        .container > img {
           height: 800px;
         }
 
-        .img-container{
-          flex-direction: column-reverse;
-        column-gap: 40px;
-        }
-
-        .text-container{
-          align-self: center;
+        .img-container {
+          flex-direction: column;
+          row-gap: 40px;
         }
       }
     </style>
@@ -97,7 +96,8 @@
         <div class="text-container">
           <h2>Wedding In Green</h2>
           <p>
-            You and me enjoying in the wedding of Ruchi di, wait I think there is anything enjoyable, right?.
+            You and me enjoying in the wedding of Ruchi di, wait I think there
+            is anything enjoyable, right?.
           </p>
         </div>
         <div class="image-container">
@@ -113,27 +113,45 @@
 
     <script>
       let textArr = [
-      {
-        h2:"My Birthday",
-        p:"Celebrating my birthday with the entire family. I want to keep remember that day except that 'paneer makhani'"
-      },
         {
-        h2:"Trip To India Gate",
-        p:"We were there in 2023 and so much efforts and planning, we finally made it and see india more closly."
-      },
+          h2: "My Birthday",
+          p: "Celebrating my birthday with the entire family. I want to keep remember that day except that 'paneer makhani'",
+        },
         {
-        h2:"Taking Selfie At Red Fort",
-        p:"The red fort that we always see in mobile, t.v and last year we were there like a dream."
-      },
+          h2: "Trip To India Gate",
+          p: "We were there in 2023 and so much efforts and planning, we finally made it and see india more closly.",
+        },
         {
-        h2:"At Qutub Minar",
-        p:"First of All, Jai Shree Ram (remember something), yes this was Shikhar trying to guide us."
-      },
-    ]
+          h2: "Taking Selfie At Red Fort",
+          p: "The red fort that we always see in mobile, t.v and last year we were there like a dream.",
+        },
+        {
+          h2: "At Qutub Minar",
+          p: "First of All, Jai Shree Ram (remember something), yes this was Shikhar trying to guide us.",
+        },
+      ];
 
       let images = document.querySelectorAll(".images > img");
       let i = 0;
-      let translate = -48;
+      let translateValue = -48;
+      let translate = translateValue
+
+      if (window.innerWidth < 599) {
+          translateValue = -52;
+          console.log(translateValue);
+      }
+
+      window.addEventListener("resize", function (event) {
+        if (window.innerWidth < 599) {
+          translateValue = -52;
+          console.log(translateValue);
+        }
+
+        if (window.innerWidth > 599) {
+          translateValue = -48;
+          console.log(translateValue);
+        }
+      });
 
       let intervalId = setInterval(() => {
         document.querySelector(
@@ -145,11 +163,13 @@
           .querySelector(".container > img")
           .setAttribute("src", `${img}`);
 
-        document.querySelector(".text-container > h2").textContent = textArr[i].h2;
+        document.querySelector(".text-container > h2").textContent =
+          textArr[i].h2;
 
-        document.querySelector(".text-container > p").textContent = textArr[i].p;
+        document.querySelector(".text-container > p").textContent =
+          textArr[i].p;
         i += 1;
-        translate += -48;
+        translate += translateValue;
       }, 6000);
 
       setTimeout(() => {
