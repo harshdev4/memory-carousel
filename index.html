@@ -60,7 +60,6 @@
         height: fit-content;
         position: relative;
         display: flex;
-        column-gap: 50px;
         transition: transform 0.5s ease;
       }
 
@@ -69,6 +68,7 @@
         width: 40%;
         height: 330px;
         object-fit: cover;
+        margin-right: 40px;
       }
 
       @media (max-width: 599px) {
@@ -84,6 +84,10 @@
           flex-direction: column;
           row-gap: 40px;
         }
+
+        .images > img {
+          height: 250px;
+      }
       }
     </style>
   </head>
@@ -133,25 +137,8 @@
 
       let images = document.querySelectorAll(".images > img");
       let i = 0;
-      let translateValue = -48;
+      let translateValue = -50;
       let translate = translateValue
-
-      if (window.innerWidth < 599) {
-          translateValue = -52;
-          console.log(translateValue);
-      }
-
-      window.addEventListener("resize", function (event) {
-        if (window.innerWidth < 599) {
-          translateValue = -52;
-          console.log(translateValue);
-        }
-
-        if (window.innerWidth > 599) {
-          translateValue = -48;
-          console.log(translateValue);
-        }
-      });
 
       let intervalId = setInterval(() => {
         document.querySelector(
@@ -170,10 +157,24 @@
           textArr[i].p;
         i += 1;
         translate += translateValue;
+        console.log(translateValue);
       }, 6000);
 
       setTimeout(() => {
         clearInterval(intervalId);
+        document.querySelector(
+          ".images"
+        ).style.display = "none";
+
+        document.querySelector(
+          ".images"
+        ).style.transform = `translateX(0%)`;
+
+        translate = 0
+
+        document.querySelector(
+          ".images"
+        ).style.display = "flex";
       }, 24000);
     </script>
   </body>
